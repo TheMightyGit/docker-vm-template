@@ -63,7 +63,6 @@ RUN echo 'eval "$(pyenv init -)"' >>~/.bash_profile
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >>~/.bash_profile
 RUN ~/.pyenv/bin/pyenv install -s 3.5.2
 
-RUN echo 'export LC_ALL=C' >>~/.bash_profile
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 
 USER {{ cookiecutter.username }}
