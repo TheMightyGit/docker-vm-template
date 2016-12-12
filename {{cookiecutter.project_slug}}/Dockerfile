@@ -37,9 +37,19 @@ RUN mkdir -p /var/run/sshd /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN adduser --uid {{ cookiecutter.UID }} --disabled-password --gecos "" {{ cookiecutter.username }}
+RUN gpasswd -a {{ cookiecutter.username }} docker
 RUN echo '{{ cookiecutter.username }} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN sed -i.bak -e s/peer/trust/g -e s/md5/trust/g /etc/postgresql/9.5/main/pg_hba.conf
+
+RUN apt-get install -y apt-transport-https ca-certificates
+RUN sudo apt-key adv \
+               --keyserver hkp://ha.pool.sks-keyservers.net:80 \
+               --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+RUN echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+RUN apt-get update
+# RUN apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
+RUN apt-get install -y docker-engine
 
 USER {{ cookiecutter.username }}
 RUN mkdir ~/.bash && cd ~/.bash && git clone git://github.com/jimeh/git-aware-prompt.git
