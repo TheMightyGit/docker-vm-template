@@ -7,9 +7,9 @@ service postgresql restart
 echo "Setting up postgres users..."
 su postgres -c "psql -c 'alter role postgres password null;'"
 su postgres -c "psql -c 'CREATE ROLE root LOGIN password null;'"
-su postgres -c "psql -c 'CREATE ROLE johnny LOGIN password null;'"
+su postgres -c "psql -c 'CREATE ROLE {{ cookiecutter.username }} LOGIN password null;'"
 su postgres -c "psql -c 'ALTER USER root CREATEDB;'"
-su postgres -c "psql -c 'ALTER USER johnny CREATEDB;'"
+su postgres -c "psql -c 'ALTER USER {{ cookiecutter.username }} CREATEDB;'"
 
 echo "Starting Redis (for catfish)..."
 redis-server &
