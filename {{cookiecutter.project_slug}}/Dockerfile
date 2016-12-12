@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /var/run/sshd /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN adduser --disabled-password --gecos "" {{ cookiecutter.username }}
+RUN adduser --uid {{ cookiecutter.UID }} --disabled-password --gecos "" {{ cookiecutter.username }}
 RUN echo '{{ cookiecutter.username }} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN sed -i.bak -e s/peer/trust/g -e s/md5/trust/g /etc/postgresql/9.5/main/pg_hba.conf

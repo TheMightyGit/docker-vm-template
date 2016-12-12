@@ -2,6 +2,7 @@
     "project_name": "Project Name",
     "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('_', '-') }}",
     "username": "johnny",
+    "UID": "501",
     "_copy_without_render": [
     ]
 }
